@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WhereToEat</string>
+    <string name="no_places_to_show">Nenhum restaurante disponível no momento.</string>
 </resources>
