@@ -1,6 +1,7 @@
 package com.leaudro.wheretoeat.ui
 
 import com.leaudro.wheretoeat.data.PlacesDataSource
+import com.leaudro.wheretoeat.ui.places.MainActivity
 import com.leaudro.wheretoeat.ui.places.PlacesContract
 import com.leaudro.wheretoeat.ui.places.PlacesPresenter
 import dagger.Module
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 @Singleton
 @Subcomponent(modules = arrayOf(PresenterModule::class))
 interface UiComponent {
-    fun inject(activity: BaseActivity)
+    fun inject(activity: MainActivity)
 }
 
 @Module
@@ -19,7 +20,7 @@ open class PresenterModule(private val view: BaseView) {
 
     @Provides
     @Singleton
-    fun providePlacesPresenter(dataSource: PlacesDataSource): PlacesPresenter {
+    fun providePlacesPresenter(dataSource: PlacesDataSource): PlacesContract.Presenter {
         if (view !is PlacesContract.View) {
             throw AssertionError("Should be a PlacesView for this presenter")
         }
