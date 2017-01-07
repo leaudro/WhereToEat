@@ -34,7 +34,6 @@ dependencies {
 
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:design:$support_version"
-    compile "com.android.support:design:$support_version"
     compile "com.android.support:cardview-v7:$support_version"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -43,6 +42,10 @@ dependencies {
     provided 'org.glassfish:javax.annotation:10.0-b28'
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     compile "com.google.dagger:dagger:$dagger_version"
+
+    //Rx - Reactive extensions for Android & Kotlin
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxkotlin:0.60.0'
 
 
     testCompile 'junit:junit:4.12'

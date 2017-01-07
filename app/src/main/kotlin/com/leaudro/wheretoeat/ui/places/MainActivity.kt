@@ -41,6 +41,9 @@ class MainActivity : BaseActivity(), PlacesContract.View {
         adapter = PlacesAdapter(this)
         placesRecyclerView.layoutManager = LinearLayoutManager(this)
         placesRecyclerView.adapter = adapter
+        adapter.onButtonClicked  = { place: Place, i: Int ->
+            //TODO on vote
+        }
     }
 
     override fun showPlaces(list: List<Place>) {

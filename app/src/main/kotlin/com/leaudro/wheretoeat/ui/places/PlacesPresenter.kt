@@ -1,6 +1,8 @@
 package com.leaudro.wheretoeat.ui.places
 
 import com.leaudro.wheretoeat.data.PlacesDataSource
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 
 class PlacesPresenter(val view: PlacesContract.View,
@@ -9,15 +11,22 @@ class PlacesPresenter(val view: PlacesContract.View,
     override fun fetchPlaces() {
         view.showLoadingIndicator(true)
 
-        val places = dataSource.getPlaces()
+        dataSource.getPlaces()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doAfterTerminate {
+                    view.showLoadingIndicator(false)
+                }
+                .subscribe({ places ->
+                    if (places.isEmpty()) {
+                        view.showEmptyList()
+                    } else {
+                        view.showPlaces(places)
+                    }
+                }, { error ->
+                    //TODO handle errors
+                })
 
-        if (places.isEmpty()) {
-            view.showEmptyList()
-        } else {
-            view.showPlaces(places)
-        }
-
-        view.showLoadingIndicator(false)
     }
 
 }

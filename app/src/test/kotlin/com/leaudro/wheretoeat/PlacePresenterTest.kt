@@ -5,11 +5,16 @@ import com.leaudro.wheretoeat.data.model.Place
 import com.leaudro.wheretoeat.ui.places.PlacesContract
 import com.leaudro.wheretoeat.ui.places.PlacesPresenter
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
+import rx.lang.kotlin.toSingletonObservable
 
 class PlacePresenterTest {
+
+    @Rule @JvmField
+    val rxField = RxSchedulersOverrideRule()
 
     lateinit var view: PlacesContract.View
     lateinit var presenter: PlacesContract.Presenter
@@ -31,7 +36,7 @@ class PlacePresenterTest {
     fun shouldGetAndShowPlaceList() {
 
         `when`(dataSource.getPlaces())
-                .thenReturn(PLACES_LIST)
+                .thenReturn(PLACES_LIST.toSingletonObservable())
 
         presenter.fetchPlaces()
 
@@ -45,7 +50,7 @@ class PlacePresenterTest {
     fun shouldShowEmptyList() {
 
         `when`(dataSource.getPlaces())
-                .thenReturn(emptyList())
+                .thenReturn(emptyList<Place>().toSingletonObservable())
 
         presenter.fetchPlaces()
 
