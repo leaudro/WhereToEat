@@ -8,4 +8,6 @@ abstract class BaseActivity : AppCompatActivity() {
     fun getAppComponent(): AppComponent = (application as App).appComponent
 }
 
-interface BaseView
+interface BaseView {
+    fun showLoadingIndicator(isLoading: Boolean)
+}

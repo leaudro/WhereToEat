@@ -2,6 +2,7 @@ package com.leaudro.wheretoeat.ui.places
 
 import android.os.Bundle
 import com.leaudro.wheretoeat.R
+import com.leaudro.wheretoeat.data.model.Place
 import com.leaudro.wheretoeat.ui.BaseActivity
 import com.leaudro.wheretoeat.ui.PresenterModule
 import com.leaudro.wheretoeat.ui.UiComponent
@@ -21,5 +22,19 @@ class MainActivity : BaseActivity(), PlacesContract.View {
         uiComponent = getAppComponent() + PresenterModule(this)
 
         uiComponent.inject(this)
+
+        presenter.fetchPlaces()
+    }
+
+    override fun showPlaces(list: List<Place>) {
+
+    }
+
+    override fun showLoadingIndicator(isLoading: Boolean) {
+
+    }
+
+    override fun showEmptyList() {
+
     }
 }
