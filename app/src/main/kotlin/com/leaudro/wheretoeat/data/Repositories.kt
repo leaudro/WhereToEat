@@ -13,6 +13,15 @@ class PlacesRepository : PlacesDataSource {
                 Place(4, "Restaurante 5", "Restaurante", 0, false, true))
 
     override fun getPlaces(): Observable<List<Place>> {
-        return placesList.toSingletonObservable().delay(5, TimeUnit.SECONDS)
+        return placesList.toSingletonObservable().delay(3, TimeUnit.SECONDS)
     }
+
+    override fun addVote(place: Place): Observable<Place?> {
+        val p = placesList.find { it.id == place.id }
+        p?.votedByYou = true
+        p?.votesReceived = p?.votesReceived?.plus(1) as Int
+
+        return p.toSingletonObservable().delay(3, TimeUnit.SECONDS)
+    }
+
 }
