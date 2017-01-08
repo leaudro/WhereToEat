@@ -23,6 +23,9 @@ class PlacesPresenter(val view: PlacesContract.View,
                     } else {
                         view.showPlaces(places)
                     }
+                    if (places.any { it.votedByYou }) {
+                        view.blockVoting()
+                    }
                 }, { error ->
                     //TODO handle errors
                 })

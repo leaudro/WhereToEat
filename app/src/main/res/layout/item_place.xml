@@ -9,15 +9,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_gravity="bottom|end"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end">
 
         <TextView
-            tools:text="x Votos"
-            android:padding="8dp"
+            android:id="@+id/textVotes"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:padding="8dp"
+            tools:text="x Votos recebidos hoje" />
+
         <Button
             android:id="@+id/buttonVote"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
@@ -33,30 +35,44 @@
         android:padding="8dp">
 
         <ImageView
-            android:src="@drawable/placeholder_place"
             android:id="@+id/image"
             android:layout_width="72dp"
             android:layout_height="72dp"
+            android:src="@drawable/placeholder_place"
             tools:src="@drawable/placeholder_place" />
 
         <TextView
             android:id="@+id/textName"
+            android:textSize="18sp"
+            android:textColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:layout_toEndOf="@+id/image"
             android:layout_toRightOf="@+id/image"
             tools:text="Restaurante do Leo" />
 
         <TextView
+            android:textSize="14sp"
             android:id="@+id/textDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/textName"
+            android:layout_alignStart="@id/textName"
             android:layout_below="@+id/textName"
-            android:layout_margin="8dp"
-            android:layout_toEndOf="@+id/image"
-            android:layout_toRightOf="@+id/image"
             tools:text="Comida baiana e aperitivos deliciosos todos os dias\nAberto das 11h às 15h" />
+
+        <TextView
+            android:id="@+id/textObservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/textDescription"
+            android:layout_alignStart="@id/textDescription"
+            android:layout_below="@id/textDescription"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/error"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            tools:text="Já visitado esta semana" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

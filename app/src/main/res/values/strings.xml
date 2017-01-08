@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">WhereToEat</string>
     <string name="no_places_to_show">Nenhum restaurante disponível no momento.</string>
+    <string name="msg_you_already_voted">Você escolheu esse restaurante hoje!</string>
+    <string name="msg_chosen_this_week">Local já escolhido essa semana</string>
+    <string name="empty" />
+    <plurals name="x_votes_received">
+        <item quantity="zero">@string/no_votes_received</item>
+        <item quantity="one">%d voto recebido</item>
+        <item quantity="other">%d votos recebidos</item>
+    </plurals>
+    <string name="no_votes_received">Nenhum voto recebido</string>
+
 </resources>

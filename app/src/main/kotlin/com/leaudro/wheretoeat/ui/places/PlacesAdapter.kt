@@ -27,6 +27,8 @@ class PlacesAdapter(context: Context) : RecyclerView.Adapter<PlacesViewHolder>()
 
     var onButtonClicked: ((Place, position: Int) -> Unit)? = null
 
+    private var enableButtons: Boolean = true
+
     override fun onBindViewHolder(holder: PlacesViewHolder?, position: Int) {
 
         holder?.let {
@@ -36,6 +38,27 @@ class PlacesAdapter(context: Context) : RecyclerView.Adapter<PlacesViewHolder>()
             it.button.setOnClickListener {
                 onButtonClicked?.invoke(place, position)
             }
+
+            it.button.isEnabled = enableButtons && !place.chosenThisWeek
+
+            with(it.textObservation) {
+                if (place.votedByYou) {
+                    visibility = View.VISIBLE
+                    setText(R.string.msg_you_already_voted)
+                } else if (place.chosenThisWeek) {
+                    visibility = View.VISIBLE
+                    setText(R.string.msg_chosen_this_week)
+                } else {
+                    visibility = View.GONE
+                }
+            }
+
+            val resources = it.textVotes.resources
+            it.textVotes.text = if (place.votesReceived > 0)
+                resources.getQuantityString(R.plurals.x_votes_received,
+                        place.votesReceived,
+                        place.votesReceived)
+            else resources.getString(R.string.no_votes_received)
         }
     }
 
@@ -46,12 +69,17 @@ class PlacesAdapter(context: Context) : RecyclerView.Adapter<PlacesViewHolder>()
 
         return PlacesViewHolder(inflater.inflate(R.layout.item_place, parent, false))
     }
+
+    fun disableVotingButtons() {
+        enableButtons = false
+    }
 }
 
 class PlacesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    var textName: TextView = view.textName
-    var textDescription: TextView = view.textDescription
     var image: ImageView = view.image
     var button: Button = view.buttonVote
-
+    var textName: TextView = view.textName
+    var textDescription: TextView = view.textDescription
+    var textObservation: TextView = view.textObservation
+    var textVotes: TextView = view.textVotes
 }

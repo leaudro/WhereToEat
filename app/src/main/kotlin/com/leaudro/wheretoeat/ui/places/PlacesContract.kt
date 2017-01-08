@@ -8,6 +8,7 @@ interface PlacesContract {
     interface View : BaseView {
         fun showPlaces(list: List<Place>)
         fun showEmptyList()
+        fun blockVoting()
     }
 
     interface Presenter {

@@ -59,4 +59,8 @@ class MainActivity : BaseActivity(), PlacesContract.View {
         emptyText.setText(R.string.no_places_to_show)
         emptyText.visibility = View.VISIBLE
     }
+
+    override fun blockVoting() {
+        adapter.disableVotingButtons()
+    }
 }
