@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:background="@color/colorBackground"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context="com.leaudro.wheretoeat.ui.places.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -35,8 +35,8 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/loading_indicator" />
-
     <include layout="@layout/include_places_list" />
+
+    <include layout="@layout/loading_indicator" />
 
 </android.support.design.widget.CoordinatorLayout>
