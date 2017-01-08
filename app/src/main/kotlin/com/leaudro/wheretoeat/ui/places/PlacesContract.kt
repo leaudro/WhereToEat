@@ -9,9 +9,11 @@ interface PlacesContract {
         fun showPlaces(list: List<Place>)
         fun showEmptyList()
         fun blockVoting()
+        fun updatePlace(place: Place)
     }
 
     interface Presenter {
         fun fetchPlaces()
+        fun vote(place: Place)
     }
 }

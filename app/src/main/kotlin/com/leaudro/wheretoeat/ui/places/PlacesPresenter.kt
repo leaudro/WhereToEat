@@ -1,6 +1,7 @@
 package com.leaudro.wheretoeat.ui.places
 
 import com.leaudro.wheretoeat.data.PlacesDataSource
+import com.leaudro.wheretoeat.data.model.Place
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
@@ -32,4 +33,21 @@ class PlacesPresenter(val view: PlacesContract.View,
 
     }
 
+    override fun vote(place: Place) {
+        view.showLoadingIndicator(true)
+
+        dataSource.addVote(place)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doAfterTerminate {
+                    view.showLoadingIndicator(false)
+                }
+                .subscribe({ place ->
+                    place?.let {
+                        view.updatePlace(it)
+                        view.blockVoting()
+                    }
+                }, { error ->
+                })
+    }
 }

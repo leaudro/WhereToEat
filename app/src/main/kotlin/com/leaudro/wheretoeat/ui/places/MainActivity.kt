@@ -42,7 +42,7 @@ class MainActivity : BaseActivity(), PlacesContract.View {
         placesRecyclerView.layoutManager = LinearLayoutManager(this)
         placesRecyclerView.adapter = adapter
         adapter.onButtonClicked  = { place: Place, i: Int ->
-            //TODO on vote
+            presenter.vote(place)
         }
     }
 
@@ -62,5 +62,10 @@ class MainActivity : BaseActivity(), PlacesContract.View {
 
     override fun blockVoting() {
         adapter.disableVotingButtons()
+    }
+
+    override fun updatePlace(place: Place) {
+        val position = adapter.list.indexOfFirst{ it.id == place.id }
+        adapter.notifyItemChanged(position)
     }
 }

@@ -72,6 +72,7 @@ class PlacesAdapter(context: Context) : RecyclerView.Adapter<PlacesViewHolder>()
 
     fun disableVotingButtons() {
         enableButtons = false
+        notifyDataSetChanged()
     }
 }
 

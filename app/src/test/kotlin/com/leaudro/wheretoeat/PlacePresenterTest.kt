@@ -27,6 +27,8 @@ class PlacePresenterTest {
     private val PLACES_WITH_ITEM_VOTED = PLACES_LIST
             .mapIndexed { i, place -> place.copy(votedByYou = i == 0) }
 
+    private val PLACE = Place(0)
+
     @Before
     fun setup() {
         view = mock()
@@ -76,6 +78,26 @@ class PlacePresenterTest {
         verify(view).showLoadingIndicator(true)
         verify(dataSource).getPlaces()
         verify(view).showPlaces(PLACES_WITH_ITEM_VOTED)
+        verify(view).blockVoting()
+        verify(view).showLoadingIndicator(false)
+        verifyNoMoreInteractions(view, dataSource)
+    }
+
+    @Test
+    fun shouldVoteCorrectly() {
+        val resultPlace = PLACE.copy(votesReceived = PLACE.votesReceived + 1,
+                votedByYou = true)
+        `when`(dataSource.addVote(PLACE))
+                .thenReturn(
+                        resultPlace
+                                .toSingletonObservable()
+                )
+
+        presenter.vote(PLACE)
+
+        verify(view).showLoadingIndicator(true)
+        verify(dataSource).addVote(PLACE)
+        verify(view).updatePlace(resultPlace)
         verify(view).blockVoting()
         verify(view).showLoadingIndicator(false)
         verifyNoMoreInteractions(view, dataSource)
