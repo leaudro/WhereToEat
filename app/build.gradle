@@ -18,6 +18,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "API_URL", "\"https://wheretoeat-python.herokuapp.com/\""
+        }
+        debug {
+            buildConfigField "String", "API_URL", "\"https://wheretoeat-python.herokuapp.com/\""
         }
     }
     sourceSets {
@@ -47,6 +52,9 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxkotlin:0.60.0'
 
+    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'
