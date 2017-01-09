@@ -1,27 +1,30 @@
 package com.leaudro.wheretoeat.data
 
+import com.leaudro.wheretoeat.App
 import com.leaudro.wheretoeat.data.model.Place
+import com.leaudro.wheretoeat.data.remote.APIService
 import rx.Observable
-import rx.lang.kotlin.toSingletonObservable
-import java.util.concurrent.TimeUnit
 
-class PlacesRepository : PlacesDataSource {
-        private val placesList = listOf(Place(0, "Restaurante 1", "Restaurante de comida baiana com ótimos aperitivos. Promoção toda sexta", 3, false, false),
-                Place(1, "Restaurante 2", "Restaurante de comida baiana com ótimos aperitivos. Promoção toda sexta", 0, false, true),
-                Place(2, "Restaurante 3", "Restaurante\n de comida baiana\n com ótimos aperitivos. \nPromoção toda sexta", 1, false, false),
-                Place(3, "Restaurante 4", "Restaurante de comida baiana com ótimos aperitivos. \nPromoção toda sexta", 6, false, false),
-                Place(4, "Restaurante 5", "Restaurante", 0, false, true))
+class PlacesRepository(private val api: APIService,
+                       private val app: App) : PlacesDataSource {
 
     override fun getPlaces(): Observable<List<Place>> {
-        return placesList.toSingletonObservable().delay(3, TimeUnit.SECONDS)
+        return api.getPlaces().map {
+            it.map {
+                return@map it.value.copy(id = it.key,
+                        votesReceived = it.value.usersWhoVoted.size,
+                        votedByYou = it.value.usersWhoVoted.contains(app.userName))
+            }.toMutableList()
+        }
     }
 
-    override fun addVote(place: Place): Observable<Place?> {
-        val p = placesList.find { it.id == place.id }
-        p?.votedByYou = true
-        p?.votesReceived = p?.votesReceived?.plus(1) as Int
-
-        return p.toSingletonObservable().delay(3, TimeUnit.SECONDS)
-    }
+    override fun addVote(place: Place): Observable<Place?>
+            = api.voteForPlace(place.id, app.userName)
+            .map {
+                place.copy(
+                        votedByYou = true,
+                        votesReceived = place.votesReceived.plus(1)
+                )
+            }
 
 }

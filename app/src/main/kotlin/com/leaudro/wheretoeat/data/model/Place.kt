@@ -1,12 +1,15 @@
 package com.leaudro.wheretoeat.data.model
 
-data class Place(val id: Long,
+import com.google.gson.annotations.SerializedName
+
+data class Place(val id: String,
                  val name: String,
                  val description: String,
                  var votesReceived: Int,
                  var votedByYou: Boolean,
-                 val chosenThisWeek: Boolean) {
+                 val chosenThisWeek: Boolean,
+                 @SerializedName("votes_users") val usersWhoVoted: List<String>) {
 
-    constructor(id: Long): this(id, "", "",0, false, false)
+    constructor(id: String): this(id, "", "",0, false, false, emptyList())
 
 }

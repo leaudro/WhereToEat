@@ -65,7 +65,12 @@ class MainActivity : BaseActivity(), PlacesContract.View {
     }
 
     override fun updatePlace(place: Place) {
-        val position = adapter.list.indexOfFirst{ it.id == place.id }
-        adapter.notifyItemChanged(position)
+        val placeUpdated = adapter.list.find { it.id == place.id }
+        placeUpdated?.let {
+            it.votedByYou = place.votedByYou
+            it.votesReceived = place.votesReceived
+        }
+
+        adapter.notifyItemChanged(adapter.list.indexOf(placeUpdated))
     }
 }

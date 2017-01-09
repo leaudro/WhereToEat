@@ -20,14 +20,14 @@ class PlacePresenterTest {
     lateinit var dataSource: PlacesDataSource
 
     private val PLACES_LIST = listOf(
-            Place(0),
-            Place(1)
+            Place("0"),
+            Place("1")
     )
 
     private val PLACES_WITH_ITEM_VOTED = PLACES_LIST
-            .mapIndexed { i, place -> place.copy(votedByYou = i == 0) }
+            .mapIndexed { i, place -> place.copy(votedByYou = i.equals("0")) }
 
-    private val PLACE = Place(0)
+    private val PLACE = Place("0")
 
     @Before
     fun setup() {
