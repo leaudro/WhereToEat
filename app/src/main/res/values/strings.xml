@@ -10,5 +10,8 @@
         <item quantity="other">%d votos recebidos</item>
     </plurals>
     <string name="no_votes_received">Nenhum voto recebido</string>
+    <string name="login">Login</string>
+    <string name="username_hint">Digite seu usuário</string>
+    <string name="sign_in">Entrar</string>
 
 </resources>
