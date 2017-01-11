@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupUI() {
         setSupportActionBar(toolbar)
+        setTitle(R.string.login)
         signInButton.setOnClickListener {
             val userName = edit_user.editText?.text.toString()
             if (userName.trim().length > 2) {
