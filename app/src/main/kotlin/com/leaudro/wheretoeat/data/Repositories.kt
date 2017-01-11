@@ -13,9 +13,9 @@ class PlacesRepository(private val api: APIService,
         return api.getPlaces().map {
             it.map {
                 return@map it.value.copy(id = it.key,
-                        votesReceived = it.value.usersWhoVoted.size,
+                        votesReceived = it.value.usersWhoVoted?.size ?: 0,
                         chosenThisWeek = it.value.lastDateChosen?.isSameWeekAsToday() ?: false,
-                        votedByYou = it.value.usersWhoVoted.contains(app.userName))
+                        votedByYou = it.value.usersWhoVoted?.contains(app.userName) ?: false)
             }.toMutableList()
         }
     }
@@ -29,4 +29,11 @@ class PlacesRepository(private val api: APIService,
                 )
             }
 
+    override fun getPlaceOfTheDay(): Observable<Place>
+            = api.chosenPlaceToday()
+            .map {
+                it.copy(votesReceived = it.usersWhoVoted?.size ?: 0,
+                        chosenThisWeek = it.lastDateChosen?.isSameWeekAsToday() ?: false,
+                        votedByYou = it.usersWhoVoted?.contains(app.userName) ?: false)
+            }
 }

@@ -6,4 +6,5 @@ import rx.Observable
 interface PlacesDataSource {
     fun getPlaces(): Observable<List<Place>>
     fun addVote(place: Place): Observable<Place?>
+    fun getPlaceOfTheDay(): Observable<Place>
 }

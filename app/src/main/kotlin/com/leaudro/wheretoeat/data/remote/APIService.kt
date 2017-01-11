@@ -14,4 +14,7 @@ interface APIService {
 
     @POST("/places/{id_place}/vote/{user}")
     fun voteForPlace(@Path("id_place") idPlace: String, @Path("user") user: String): Observable<Void>
+
+    @GET("/places/placeofday")
+    fun chosenPlaceToday(): Observable<Place>
 }
