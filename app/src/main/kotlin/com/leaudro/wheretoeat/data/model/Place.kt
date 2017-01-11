@@ -3,7 +3,7 @@ package com.leaudro.wheretoeat.data.model
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class Place(val id: String,
+data class Place(val id: String?,
                  val name: String,
                  val description: String,
                  var votesReceived: Int,

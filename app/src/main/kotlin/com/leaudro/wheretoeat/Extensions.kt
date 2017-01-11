@@ -9,3 +9,7 @@ fun Date.isSameWeekAsToday(): Boolean {
     return date[Calendar.YEAR] == today[Calendar.YEAR] &&
             date[Calendar.WEEK_OF_YEAR] == today[Calendar.WEEK_OF_YEAR]
 }
+
+fun Calendar.isAfterMidDay(): Boolean {
+    return this[Calendar.HOUR_OF_DAY] >= 12
+}

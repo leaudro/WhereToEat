@@ -21,7 +21,7 @@ class PlacesRepository(private val api: APIService,
     }
 
     override fun addVote(place: Place): Observable<Place?>
-            = api.voteForPlace(place.id, app.userName)
+            = api.voteForPlace(place.id!!, app.userName)
             .map {
                 place.copy(
                         votedByYou = true,

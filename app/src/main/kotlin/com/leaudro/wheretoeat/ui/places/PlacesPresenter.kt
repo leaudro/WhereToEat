@@ -2,8 +2,10 @@ package com.leaudro.wheretoeat.ui.places
 
 import com.leaudro.wheretoeat.data.PlacesDataSource
 import com.leaudro.wheretoeat.data.model.Place
+import com.leaudro.wheretoeat.isAfterMidDay
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
+import java.util.*
 
 
 class PlacesPresenter(val view: PlacesContract.View,
@@ -30,7 +32,6 @@ class PlacesPresenter(val view: PlacesContract.View,
                 }, { error ->
                     //TODO handle errors
                 })
-
     }
 
     override fun vote(place: Place) {
@@ -49,5 +50,19 @@ class PlacesPresenter(val view: PlacesContract.View,
                     }
                 }, { error ->
                 })
+    }
+
+    override fun checkPlaceOfTheDay() {
+        if (Calendar.getInstance().isAfterMidDay()) {
+            view.blockVoting()
+            dataSource.getPlaceOfTheDay()
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ place ->
+                        view.showTodayChosenPlace(place)
+                    }, { error ->
+                        //TODO handle errors
+                    })
+        }
     }
 }

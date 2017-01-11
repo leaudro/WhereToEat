@@ -1,6 +1,7 @@
 package com.leaudro.wheretoeat.ui.places
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.leaudro.wheretoeat.R
@@ -35,6 +36,7 @@ class MainActivity : BaseActivity(), PlacesContract.View {
         setupRecyclerView()
 
         presenter.fetchPlaces()
+        presenter.checkPlaceOfTheDay()
     }
 
     fun setupRecyclerView() {
@@ -72,5 +74,12 @@ class MainActivity : BaseActivity(), PlacesContract.View {
         }
 
         adapter.notifyItemChanged(adapter.list.indexOf(placeUpdated))
+    }
+
+    override fun showTodayChosenPlace(place: Place) {
+        AlertDialog.Builder(this)
+                .setMessage(getString(R.string.msg_place_chosen, place.name))
+                .setOnDismissListener { finish() }
+                .show()
     }
 }

@@ -10,10 +10,12 @@ interface PlacesContract {
         fun showEmptyList()
         fun blockVoting()
         fun updatePlace(place: Place)
+        fun showTodayChosenPlace(place: Place)
     }
 
     interface Presenter {
         fun fetchPlaces()
         fun vote(place: Place)
+        fun checkPlaceOfTheDay()
     }
 }
