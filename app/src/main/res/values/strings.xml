@@ -13,5 +13,6 @@
     <string name="login">Login</string>
     <string name="username_hint">Digite seu usuário</string>
     <string name="sign_in">Entrar</string>
+    <string name="msg_error_empty_login">Por favor, digite um nome de usuário válido. (min. 3 caracteres)</string>
 
 </resources>
