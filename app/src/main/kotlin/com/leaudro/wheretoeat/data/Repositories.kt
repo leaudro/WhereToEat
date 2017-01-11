@@ -3,6 +3,7 @@ package com.leaudro.wheretoeat.data
 import com.leaudro.wheretoeat.App
 import com.leaudro.wheretoeat.data.model.Place
 import com.leaudro.wheretoeat.data.remote.APIService
+import com.leaudro.wheretoeat.isSameWeekAsToday
 import rx.Observable
 
 class PlacesRepository(private val api: APIService,
@@ -13,6 +14,7 @@ class PlacesRepository(private val api: APIService,
             it.map {
                 return@map it.value.copy(id = it.key,
                         votesReceived = it.value.usersWhoVoted.size,
+                        chosenThisWeek = it.value.lastDateChosen?.isSameWeekAsToday() ?: false,
                         votedByYou = it.value.usersWhoVoted.contains(app.userName))
             }.toMutableList()
         }
